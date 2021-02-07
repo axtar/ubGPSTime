@@ -2,7 +2,6 @@
 // get utc time from u-blox gps module
 // designed for nixie clocks...
 // Version 0.1.2 (alpha)
-// Under construction...
 
 // MIT license
 // Copyright 2021 highvoltglow
@@ -22,13 +21,6 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
 // OTHER DEALINGS IN THE SOFTWARE.
-
-// history
-// 04.02.2021 Version 0.1 (alpha)
-//            Initial version
-// 
-// 05.02.2021 Version 0.1.2 (alpha)
-//            Corrected payloadLength to uint16_t type
 
 #ifndef UBGPSTIME_H
 #define UBGPSTIME_H

@@ -2,7 +2,6 @@
 // get utc time from u-blox gps module
 // designed for nixie clocks...
 // Version 0.1.2 (alpha)
-// Under construction...
 
 // MIT license
 // Copyright 2021 highvoltglow
@@ -130,8 +129,9 @@ void ubGPSTime::process()
                     message.payloadLength |= c << 8;
                     if(message.payloadLength == 0)
                     {
-                        // no payload
-                        fieldCounter++;
+                        // skip payload
+                        fieldCounter+=2;
+
                     }
                     else if(message.payloadLength > MAX_PAYLOAD)
                     {
@@ -144,9 +144,8 @@ void ubGPSTime::process()
                     {
                         // allocate memory
                         message.payload = new uint8_t[message.payloadLength];
+                        fieldCounter++;
                     }
-                    
-                    fieldCounter++;
                     break;
 
                 case 6: // payload
