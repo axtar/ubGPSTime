@@ -93,7 +93,7 @@ typedef struct
     uint8_t day;
     uint8_t hour;
     uint8_t minute;
-    uint8_t seconds;
+    uint8_t second;
     bool utcValid;
     bool timeOfWeekValid;
     bool weekNumberValid;
@@ -168,7 +168,7 @@ public:
 
     void disableDefaultNMEA();
 
-    void setMessageRate(uint8_t msgClass, uint8_t msgID, uint8_t rate);
+    void setMessageRate(uint8_t msgClass, uint8_t msgID, uint8_t rate, bool wait = true);
     void pollMessage(uint8_t msgClass, uint8_t msgID);
 
     // single request
@@ -177,8 +177,8 @@ public:
     void requestTimeUTC();   
 
     // subscriptions
-    void subscribeGPSStatus(uint8_t rate);
-    void subscribeTimeUTC(uint8_t rate);
+    void subscribeGPSStatus(uint8_t rate, bool wait = true);
+    void subscribeTimeUTC(uint8_t rate, bool wait = true);
 
     MODULEVERSION getModuleVersion();
     TIMEUTC getTimeUTC();

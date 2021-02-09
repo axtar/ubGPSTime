@@ -432,7 +432,7 @@ bool ubGPSTime::waitForResponse(uint32_t timeout)
 
 // sets update rate for messages in seconds, max 255, 
 // use rate = 0 to stop the module from sending updates
-void ubGPSTime::setMessageRate(uint8_t msgClass, uint8_t msgID, uint8_t rate)
+void ubGPSTime::setMessageRate(uint8_t msgClass, uint8_t msgID, uint8_t rate, bool wait)
 {
     UBXMESSAGE message;
     uint8_t payLoad[3];
@@ -447,8 +447,11 @@ void ubGPSTime::setMessageRate(uint8_t msgClass, uint8_t msgID, uint8_t rate)
     message.payload[1] = msgID;
     message.payload[2] = rate;
     sendMessage(&message); 
-    _pending = pending::ack;      
-    waitForResponse(WAIT_FOR_RESPONSE);
+    _pending = pending::ack;
+    if(wait)
+    {      
+        waitForResponse(WAIT_FOR_RESPONSE);
+    }   
 }
 
 // requests a single message
@@ -494,15 +497,15 @@ void ubGPSTime::requestTimeUTC()
 
 
 // subscribe to GPS status information
-void ubGPSTime::subscribeGPSStatus(uint8_t rate)
+void ubGPSTime::subscribeGPSStatus(uint8_t rate, bool wait)
 {
-    setMessageRate(UBX_NAV, UBX_NAV_STATUS, rate);
+    setMessageRate(UBX_NAV, UBX_NAV_STATUS, rate, wait);
 }
 
 // subscribe to date/time information
-void ubGPSTime::subscribeTimeUTC(uint8_t rate)
+void ubGPSTime::subscribeTimeUTC(uint8_t rate, bool wait)
 {
-    setMessageRate(UBX_NAV, UBX_NAV_TIMEUTC, rate);
+    setMessageRate(UBX_NAV, UBX_NAV_TIMEUTC, rate, wait);
 }
 
 // processes Ack messages
@@ -601,7 +604,7 @@ void ubGPSTime::onTimeUTC(UBXMESSAGE *message)
     _timeUTC.day = getU1(message, 15);
     _timeUTC.hour = getU1(message, 16);
     _timeUTC.minute = getU1(message, 17);
-    _timeUTC.seconds = getU1(message, 18);
+    _timeUTC.second = getU1(message, 18);
     _timeUTC.timeOfWeekValid = (bool) getFlag(message, 19, 0);
     _timeUTC.weekNumberValid = (bool) getFlag(message, 19, 1);
     _timeUTC.utcValid = (bool) getFlag(message, 19, 2);
@@ -625,7 +628,7 @@ void ubGPSTime::onTimeUTC(UBXMESSAGE *message)
         _debugPort->print("Minute:             ");
         _debugPort->println(_timeUTC.minute);
         _debugPort->print("Second:             ");
-        _debugPort->println(_timeUTC.seconds);
+        _debugPort->println(_timeUTC.second);
         _debugPort->print("Time of week valid: ");
         _debugPort->println(_timeUTC.timeOfWeekValid);
         _debugPort->print("Week number valid:  ");
