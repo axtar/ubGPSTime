@@ -1,7 +1,7 @@
 // ubGPSTime
 // get utc time from u-blox gps module
 // designed for nixie clocks...
-// Version 0.1.2 (alpha)
+// Version 0.1.3 (alpha)
 
 // MIT license
 // Copyright 2021 highvoltglow
@@ -641,12 +641,12 @@ void ubGPSTime::onTimeUTC(UBXMESSAGE *message)
 }
 
 // field extraction functions
-uint8_t ubGPSTime::getU1(UBXMESSAGE *message, uint8_t offset)
+uint8_t ubGPSTime::getU1(UBXMESSAGE *message, uint16_t offset)
 {
     return (uint8_t)message->payload[offset];
 }
 
-uint16_t ubGPSTime::getU2(UBXMESSAGE *message, uint8_t offset)
+uint16_t ubGPSTime::getU2(UBXMESSAGE *message, uint16_t offset)
 {
   uint16_t value = 0;
   value |= (uint16_t)message->payload[offset];
@@ -654,7 +654,7 @@ uint16_t ubGPSTime::getU2(UBXMESSAGE *message, uint8_t offset)
   return (value);
 }
 
-uint32_t ubGPSTime::getU4(UBXMESSAGE *message, uint8_t offset)
+uint32_t ubGPSTime::getU4(UBXMESSAGE *message, uint16_t offset)
 {
   uint32_t value = 0;
   value |= (uint32_t)message->payload[offset];
@@ -664,18 +664,18 @@ uint32_t ubGPSTime::getU4(UBXMESSAGE *message, uint8_t offset)
   return (value);
 }
 
-int32_t ubGPSTime::getI4(UBXMESSAGE *message, uint8_t offset)
+int32_t ubGPSTime::getI4(UBXMESSAGE *message, uint16_t offset)
 {
   return ((int32_t)getU4(message, offset));
 }
 
-uint8_t ubGPSTime::getFlag(UBXMESSAGE *message, uint8_t offset, uint8_t bit)
+uint8_t ubGPSTime::getFlag(UBXMESSAGE *message, uint16_t offset, uint8_t bit)
 {
     uint8_t flags = getU1(message, offset);
     return ((flags >> bit) & 0x01);
 }
 
-String ubGPSTime::getString(UBXMESSAGE *message, uint8_t offset, uint8_t length)
+String ubGPSTime::getString(UBXMESSAGE *message, uint16_t offset, uint16_t length)
 {
     String s;
     for(uint16_t i = offset; i < offset + length; i++)
