@@ -1,7 +1,7 @@
 // ubGPSTime
 // get utc time from u-blox gps module
 // designed for nixie clocks...
-// Version 0.1.2 (alpha)
+// Version 0.1.3 (alpha)
 
 // MIT license
 // Copyright 2021 highvoltglow
@@ -216,12 +216,12 @@ private:
     bool validateChecksum(UBXMESSAGE *message);
 
     // field extraction functions
-    uint8_t getU1(UBXMESSAGE *message, uint8_t offset);
-    uint16_t getU2(UBXMESSAGE *message, uint8_t offset);
-    uint32_t getU4(UBXMESSAGE *message, uint8_t offset);
-    int32_t getI4(UBXMESSAGE *message, uint8_t offset);
-    uint8_t getFlag(UBXMESSAGE *message, uint8_t offset, uint8_t bit);
-    String getString(UBXMESSAGE *message, uint8_t offset, uint8_t length);
+    uint8_t getU1(UBXMESSAGE *message, uint16_t offset);
+    uint16_t getU2(UBXMESSAGE *message, uint16_t offset);
+    uint32_t getU4(UBXMESSAGE *message, uint16_t offset);
+    int32_t getI4(UBXMESSAGE *message, uint16_t offset);
+    uint8_t getFlag(UBXMESSAGE *message, uint16_t offset, uint8_t bit);
+    String getString(UBXMESSAGE *message, uint16_t offset, uint16_t length);
 };
 
 #endif
