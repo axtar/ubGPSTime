@@ -29,7 +29,7 @@
 // callback forward definition
 void onGPSMessage(UBXMESSAGE *message);
 
-// mapping for the fix type (see u-blox documentation)
+// fix type mapping (see u-blox documentation)
 String gpsFixType[] = {"no fix","dead reckoning only", "2D-fix", "3D-fix", "GPS + dead reckoning combined", "Time only fix", "Reserved"};
 
 // globals
